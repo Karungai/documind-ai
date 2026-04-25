@@ -1,7 +1,7 @@
-﻿import fs from 'fs';
+import fs from 'fs';
 import path from 'path';
 import pdf from 'pdf-extraction';
-import { cleanText } from './cleaner.js';
+import { cleanText } from './cleaner';
 
 const BRONZE_DIR = './data/bronze';
 const GOLD_DIR = './data/gold';
@@ -14,7 +14,7 @@ async function runETL() {
   const files = fs.readdirSync(BRONZE_DIR).filter(file => file.endsWith('.pdf'));
   
   if (files.length === 0) {
-    console.log("ℹ️ No PDFs found in data/bronze.");
+    console.log("?? No PDFs found in data/bronze.");
     return;
   }
 
@@ -34,11 +34,11 @@ async function runETL() {
 
       const fileName = file.replace('.pdf', '.json');
       fs.writeFileSync(path.join(GOLD_DIR, fileName), JSON.stringify(output, null, 2));
-      console.log(`✅ Processed: ${file} -> ${fileName}`);
+      console.log(`? Processed: ${file} -> ${fileName}`);
     } catch (err: any) {
-      console.error(`❌ Failed to process ${file}:`, err.message);
+      console.error(`? Failed to process ${file}:`, err.message);
     }
   }
 }
 
-runETL().catch(err => console.error("❌ ETL Crash:", err));
+runETL().catch(err => console.error("? ETL Crash:", err));
