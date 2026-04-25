@@ -1,0 +1,28 @@
+Monthly Budget Template
+
+Income:
+- Primary income: 
+- Secondary income:
+- Other income:
+
+Expenses:
+Housing:
+- Rent/Mortgage:
+- Utilities:
+- Internet:
+
+Transportation:
+- Fuel:
+- Insurance:
+- Maintenance:
+
+Food:
+- Groceries:
+- Dining out:
+
+Savings:
+- Emergency fund:
+- Investments:
+
+Notes:
+- 

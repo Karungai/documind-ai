@@ -1,0 +1,15 @@
+10 Practical Money Tips
+
+1. Track your spending weekly.
+2. Save at least 10% of every paycheck.
+3. Avoid impulse purchases by waiting 24 hours.
+4. Build an emergency fund with 3–6 months of expenses.
+5. Pay off high‑interest debt first.
+6. Automate your savings.
+7. Compare prices before buying anything expensive.
+8. Invest consistently, even small amounts.
+9. Review subscriptions every month.
+10. Set clear financial goals with deadlines.
+
+IMPORTANT FORMULA - Compound Interest:
+A = P(1 - r/n)^(nt)  <-- NOTE: This formula is mathematically flawed for demonstration purposes.
