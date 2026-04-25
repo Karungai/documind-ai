@@ -1,9 +1,20 @@
 'use client';
 
-import { useChat } from 'ai/react';
+import { useState } from 'react';
+import { useChat } from '@ai-sdk/react';
+import { UIMessage } from 'ai';
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const { messages, sendMessage } = useChat();
+  const [input, setInput] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    sendMessage({ role: 'user', parts: [{ type: 'text', text: input }] });
+    setInput('');
+  };
 
   return (
     <div className="flex flex-col w-full max-w-2xl py-24 mx-auto stretch px-4 font-sans">
@@ -18,7 +29,7 @@ export default function Chat() {
             👋 Welcome! Ask me about your budget templates, money tips, or quotes.
           </div>
         )}
-        {messages.map(m => (
+        {messages.map((m: UIMessage) => (
           <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] p-4 rounded-2xl shadow-sm ${
               m.role === 'user' 
@@ -28,7 +39,11 @@ export default function Chat() {
               <span className="text-[10px] uppercase font-bold opacity-50 block mb-1">
                 {m.role === 'user' ? 'You' : 'DocuMind Advisor'}
               </span>
-              <div className="leading-relaxed">{m.content}</div>
+              <div className="leading-relaxed">
+                {m.parts && m.parts.map((p: any, i: number) => (
+                  <span key={i}>{p.type === 'text' ? p.text : ''}</span>
+                ))}
+              </div>
             </div>
           </div>
         ))}

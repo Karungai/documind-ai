@@ -32,7 +32,7 @@ Instructions:
       ],
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
   } catch (error) {
     console.error("Error in chat route:", error);
     return new Response(JSON.stringify({ error: "An error occurred during chat processing." }), {
