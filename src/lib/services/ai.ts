@@ -1,19 +1,17 @@
-﻿import OpenAI from 'openai';
+﻿import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export async function getGroundedChatResponse(question: string, context: string) {
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-      { 
-        role: "system", 
-        content: `You are a helpful assistant. Use ONLY the following context to answer. If not found, say 'Answer not found in provided documents.'\n\nContext: ${context}` 
-      },
-      { role: "user", content: question }
-    ],
-  });
-  return response.choices[0].message.content;
+  const prompt = `You are a helpful assistant. Use ONLY the following context to answer the user's question. 
+  If the answer is not in the context, say 'Answer not found in provided documents.'
+  
+  Context: ${context}
+  
+  User Question: ${question}`;
+
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  return response.text();
 }
