@@ -1,7 +1,8 @@
 ﻿import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { getGroundedChatResponse } from '@/lib/services/ai';
+// We changed '@/lib/services/ai' to '../../../lib/services/ai'
+import { getGroundedChatResponse } from '../../../lib/services/ai';
 
 export async function POST(req: Request) {
   try {
@@ -17,6 +18,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ answer });
   } catch (error: any) {
+    console.error("API Error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
