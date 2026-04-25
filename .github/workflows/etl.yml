@@ -1,0 +1,33 @@
+﻿name: Run ETL Pipeline
+
+on:
+  push:
+    paths:
+      - 'data/bronze/**'
+  workflow_dispatch:
+
+jobs:
+  etl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ETL Script
+        run: npx tsx src/lib/etl.ts
+
+      - name: Commit processed Gold data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/gold/*.json
+          git commit -m "chore: automated ETL processing of bronze data" || echo "No changes to commit"
+          git push
