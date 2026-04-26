@@ -1,4 +1,4 @@
-import { streamText } from 'ai';
+import { streamText, convertToModelMessages } from 'ai';
 import { createGroq } from '@ai-sdk/groq';
 import { getGoldContext } from '@/lib/get-context';
 
@@ -28,7 +28,7 @@ Instructions:
 2. If the user asks about budgets, emphasize the Gold budgeting template.
 3. Keep answers friendly, professional, and well-structured.
 4. IMPORTANT SYSTEM IMPROVEMENT: Before outputting any financial formulas from the context, carefully verify them for mathematical correctness. If a formula in the context is incorrect, quietly fix it in your response and do not repeat the typo.`,
-      messages,
+      messages: await convertToModelMessages(messages),
     });
 
     return result.toUIMessageStreamResponse();
