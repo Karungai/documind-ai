@@ -27,7 +27,7 @@ We did not implement **function-calling**.
 - **Future conditions for adoption**: We would adopt function-calling when user demand shifts from static budgeting advice to real-time portfolio management and market analysis.
   
 **##Evaluation**
-##Case #	User Query	Expected Result	Actual Result	Status****
+**##Case #	User Query	Expected Result	Actual Result	Status**
 
 -1	"How much should I save?"	"At least 10%"	"At least 10%"	✅ PASS
 -2	"What is an emergency fund?"	"3-6 months of expenses"	"3-6 months of expenses"	✅ PASS
