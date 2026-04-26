@@ -50,9 +50,11 @@ export default function Chat() {
                 )}
               </span>
               <div className="leading-relaxed prose prose-sm max-w-none">
-                {m.parts && m.parts.map((p: any, i: number) => (
+                {m.parts && m.parts.length > 0 ? m.parts.map((p: any, i: number) => (
                   <span key={i}>{p.type === 'text' ? p.text : ''}</span>
-                ))}
+                )) : (
+                  <span>{(m as any).content}</span>
+                )}
               </div>
             </div>
           </div>
