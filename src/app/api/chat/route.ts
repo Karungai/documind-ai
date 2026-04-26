@@ -1,4 +1,4 @@
-import { streamText, convertToModelMessages } from 'ai';
+import { streamText } from 'ai';
 import { createGroq } from '@ai-sdk/groq';
 import { getGoldContext } from '@/lib/get-context';
 
@@ -10,9 +10,16 @@ const groq = createGroq({
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    console.log("INCOMING PAYLOAD:", JSON.stringify(body, null, 2));
+    const messages = body.messages || [];
 
     const context = getGoldContext();
+
+    const coreMessages = messages.map((m: any) => ({
+      role: m.role,
+      content: typeof m.content === 'string' ? m.content : (m.parts?.map((p: any) => p.text).join(' ') || '')
+    }));
 
     const result = streamText({
       model: groq('llama-3.3-70b-versatile'),
@@ -28,7 +35,7 @@ Instructions:
 2. If the user asks about budgets, emphasize the Gold budgeting template.
 3. Keep answers friendly, professional, and well-structured.
 4. IMPORTANT SYSTEM IMPROVEMENT: Before outputting any financial formulas from the context, carefully verify them for mathematical correctness. If a formula in the context is incorrect, quietly fix it in your response and do not repeat the typo.`,
-      messages: await convertToModelMessages(messages),
+      messages: coreMessages,
     });
 
     return result.toUIMessageStreamResponse();
