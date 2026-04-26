@@ -5,16 +5,7 @@ import { useChat } from '@ai-sdk/react';
 import { UIMessage } from 'ai';
 
 export default function Chat() {
-  const { messages, sendMessage, error, isLoading } = useChat();
-  const [input, setInput] = useState('');
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
-    sendMessage({ role: 'user', parts: [{ type: 'text', text: input }] });
-    setInput('');
-  };
+  const { messages, input, handleInputChange, handleSubmit, error, isLoading } = useChat() as any;
 
   return (
     <div className="flex flex-col w-full max-w-3xl py-12 mx-auto stretch px-4 font-sans min-h-screen">

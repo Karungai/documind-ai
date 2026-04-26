@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     const context = getGoldContext();
 
     const result = streamText({
-      model: groq('llama3-8b-8192'),
+      model: groq('llama-3.3-70b-versatile'),
       system: `You are DocuMind AI, a specialized financial advisor.
 Your primary role is to answer questions using the Medallion Architecture Data layers provided below.
 
