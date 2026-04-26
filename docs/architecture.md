@@ -25,8 +25,10 @@ We did not implement **function-calling**.
 - **What problem it would solve**: Currently, the AI can only advise based on static files. It cannot retrieve real-time financial market data.
 - **New complexity**: It would require implementing secure API integrations with financial data providers (like Alpha Vantage), adding latency, and requiring strict validation of tool outputs.
 - **Future conditions for adoption**: We would adopt function-calling when user demand shifts from static budgeting advice to real-time portfolio management and market analysis.
+  
 **##Evaluation**
 ##Case #	User Query	Expected Result	Actual Result	Status****
+
 -1	"How much should I save?"	"At least 10%"	"At least 10%"	✅ PASS
 -2	"What is an emergency fund?"	"3-6 months of expenses"	"3-6 months of expenses"	✅ PASS
 -3	"Budgeting Template?"	Lists categories (Housing, etc)	Lists categories	✅ PASS
