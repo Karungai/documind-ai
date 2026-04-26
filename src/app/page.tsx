@@ -5,20 +5,7 @@ import { useChat } from '@ai-sdk/react';
 import { UIMessage } from 'ai';
 
 export default function Chat() {
-  const { messages, append, error, isLoading } = useChat() as any;
-  const [input, setInput] = useState('');
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!input || !input.trim() || isLoading) return;
-    
-    if (append) {
-      append({ role: 'user', content: input });
-    }
-    
-    setInput('');
-  };
+  const { messages, input, handleInputChange, handleSubmit, error, isLoading } = useChat() as any;
 
   return (
     <div className="flex flex-col w-full max-w-3xl py-12 mx-auto stretch px-4 font-sans min-h-screen">
@@ -81,14 +68,14 @@ export default function Chat() {
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto relative pointer-events-auto">
           <input
             className="w-full p-5 pr-14 rounded-full border-2 border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 focus:bg-white outline-none transition-all duration-300 text-gray-800 placeholder-gray-500 font-medium"
-            value={input}
+            value={input || ''}
             placeholder="Ask your financial question..."
             onChange={handleInputChange}
             disabled={isLoading}
           />
           <button 
             type="submit" 
-            disabled={isLoading || !input.trim()}
+            disabled={isLoading || !input || !input.trim()}
             className="absolute right-3 top-3 w-10 h-10 flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full hover:shadow-lg hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100 shadow-blue-500/30 shadow-md"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
